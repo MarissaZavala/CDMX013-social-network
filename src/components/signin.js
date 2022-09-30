@@ -1,5 +1,6 @@
+import { GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
 import { onNavigate } from '../main.js';
-import { signIn, verifyWithGoogle } from '../lib/auth.js';
+import { signIn, verifyWithGoogle, redirect } from '../lib/auth.js';
 
 export const LogOn = () => {
   const div = document.createElement('div');
@@ -62,9 +63,27 @@ export const LogOn = () => {
   });
   buttonGoogle.addEventListener('click', () => {
     verifyWithGoogle()
-      .then(() => {
-        onNavigate('/wall');
+      .then((result) => {
+      // This gives you a Google Access Token. You can use it to access Google APIs.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        console.log('lau auidaaaa');
+        // The signed-in user info.
+        const user = result.user;
+      }).catch((error) => {
+      // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
       });
+    /* .then(() => {
+        onNavigate('/wall');
+        console.log('signin')
+      }); */
   });
   askSection.append(askAccount, linkRegister);
 

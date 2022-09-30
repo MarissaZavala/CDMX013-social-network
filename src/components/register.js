@@ -1,5 +1,5 @@
 import { onNavigate } from '../main.js';
-import { createAccount, verifyWithGoogle } from '../lib/auth.js';
+import { createAccount, verifyWithGoogle, redirect } from '../lib/auth.js';
 
 export const register = () => {
   const div = document.createElement('div');
