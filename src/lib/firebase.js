@@ -1,4 +1,4 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -10,5 +10,5 @@ const firebaseConfig = {
   appId: '1:1041924138616:web:d9b952d6c54925d7d92f8d',
 };
 
-// Initialize Firebase
+// Initialize Firebase and Firestore
 export const app = initializeApp(firebaseConfig);
