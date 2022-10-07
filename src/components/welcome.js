@@ -6,7 +6,6 @@ export const welcome = () => {
   const buttonSignIn = document.createElement('button');
   const buttonRegister = document.createElement('button');
   const about = document.createElement('h3');
-
   title.setAttribute('src', '/images/icon.png');
   title.classList.add('imageTitle');
   buttonSignIn.classList.add('buttonSignIn');

@@ -6,19 +6,21 @@ import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
-  getRedirectResult,
-} from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
+} from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js';
 
-import { app } from '../firebase.js';
+import { app } from './firebase.js';
 import { onNavigate } from '../main.js';
 
 export const auth = getAuth(app);
 
+// eslint-disable-next-line max-len
 export const createAccount = (emailValue, passwordValue) => createUserWithEmailAndPassword(auth, emailValue, passwordValue);
+
+// eslint-disable-next-line max-len
 export const signIn = (emailValue, passwordValue) => signInWithEmailAndPassword(auth, emailValue, passwordValue);
 export const provider = new GoogleAuthProvider();
 export const verifyWithGoogle = () => signInWithRedirect(auth, provider);
-export const redirect = () => getRedirectResult(auth);
+export const redirect = () => signInWithRedirect(auth);
 
 export const getUserState = () => onAuthStateChanged(auth, (user) => {
   if (user) {
