@@ -292,7 +292,6 @@ a {
 }
 
 .publishedPost{
-    /*display: none;*/
     background-color: var(--backgroundColor);
     width: 343px;
     height: 194px;
@@ -393,4 +392,57 @@ a {
     grid-row: 2/3;
     align-self: end;
     margin-top: 5px;
+}
+.modalBack{
+    background-color: #60762e77;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    position: fixed;
+    margin: 0;
+} 
+.modalBack > div{
+    margin-top: 230px;
+    margin-left: -5px;
+    display: grid;
+    grid-template-columns: 1.5px repeat(2, 170px) 1.5px;
+    gap: 10px 0;
+}
+.editInput{
+    width: 200px;
+    height: 100px;
+    background: var(--white);
+    grid-column: 2/4;
+    grid-row: 2/3;
+}
+.acceptButton{
+    background: var(--firstColor);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    height: 28px;
+    width: 89px;
+    margin: 0;
+    font-size: 14px;
+    grid-column: 3/4;
+    grid-row: 3/4;
+    justify-self: center;
+}
+.message {
+    grid-column: 2/4;
+    grid-row: 1/2;
+    align-self: center;
+}
+.cancelButton{
+    background: var(--secondColor);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    height: 28px;
+    width: 89px;
+    margin: 0;
+    font-size: 14px;
+    grid-column: 2/3;
+    grid-row: 3/4;
+    justify-self: center;
 }

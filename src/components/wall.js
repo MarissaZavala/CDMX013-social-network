@@ -46,18 +46,29 @@ export const wall = () => {
   userIcon.classList.add('userIcon');
   postTextBox.classList.add('postTextBox');
   makePostForm.classList.add('makePostForm');
-  publishedPost.classList.add('publishedPost');//
   buttonCreatePost.classList.add('postButton');
   postsSectionDiv.classList.add('postsSectionDiv');
-  userIconPost.classList.add('userIcon');//
-  text.classList.add('publishedText'); //
-  heartIcon.classList.add('heartIcon'); //
-  likeIcon.classList.add('likeIcon');//
-  likeCount.classList.add('likeCount');//
   bottomBannerDiv.classList.add('bottomBannerDiv');
   bottomLine.classList.add('bottomLine');
   homeIcon.classList.add('homeIcon');
   logOut.classList.add('logOut');
+
+  const modalContainer = document.createElement('dialog');
+  modalContainer.classList.add('modalBack');
+  const modalAlert = document.createElement('div');
+  modalAlert.classList.add('publishedPost');
+  const message = document.createElement('p');
+  message.classList.add('message');
+  const editInput = document.createElement('input');
+  editInput.classList.add('editInput');
+  const acceptButton = document.createElement('button');
+  acceptButton.classList.add('acceptButton');
+  const cancelButton = document.createElement('button');
+  cancelButton.classList.add('cancelButton');
+  cancelButton.textContent = 'Cancel';
+
+  modalAlert.append(message, editInput, cancelButton, acceptButton);
+  modalContainer.append(modalAlert);
 
   let editStatus = false;
 
@@ -107,6 +118,8 @@ export const wall = () => {
 
         postTextBox.value = post.post;
         editStatus = true;
+        modalContainer.showModal();
+        message.textContent = 'Edit your message';
       });
     });
     console.log(postinfo);
@@ -118,7 +131,7 @@ export const wall = () => {
     e.preventDefault();
     const postValue = postTextBox.value;
     console.log(postValue);
-    // postCollection(postValue, user);
+    //postCollection(postValue, user);
     editStatus = true;
     if (editStatus) {
       const getId = getPost(e.target.dataset.id);
@@ -139,7 +152,7 @@ export const wall = () => {
   makePostForm.append(postTextBox, buttonCreatePost);
   bottomBannerDiv.append(bottomLine, logOut);
 
-  div.append(upperBannerDiv, makePostForm, postsSectionDiv, bottomBannerDiv);
+  div.append(modalContainer, upperBannerDiv, makePostForm, postsSectionDiv, bottomBannerDiv);
   return div;
 };
 
