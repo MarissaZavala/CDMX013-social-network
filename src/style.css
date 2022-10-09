@@ -226,6 +226,8 @@ a {
     margin-right: 16px;
     display: flex;
     align-items: center;
+    padding-right: 26px; /*lo puse porque se veía la orilla de los post arriba*/
+    padding-left: 26px; /*lo puse porque se veía la orilla de los post arriba*/
 }
 
 .growLetters {
@@ -400,6 +402,7 @@ a {
     z-index: 3;
     position: fixed;
     margin: 0;
+    justify-content: center;
 } 
 .modalBack > div{
     margin-top: 230px;
@@ -428,10 +431,10 @@ a {
     grid-row: 3/4;
     justify-self: center;
 }
-.message {
+.messageEdit {
     grid-column: 2/4;
     grid-row: 1/2;
-    align-self: center;
+    align-self: end;
 }
 .cancelButton{
     background: var(--secondColor);
@@ -445,4 +448,10 @@ a {
     grid-column: 2/3;
     grid-row: 3/4;
     justify-self: center;
+}
+.messageDelete {
+    grid-column: 2/4;
+    grid-row: 2/3;
+    align-self: baseline;
+    font-size: 20px;
 }

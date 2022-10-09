@@ -15,8 +15,7 @@ export const wall = () => {
   const makePostForm = document.createElement('form');
   const postTextBox = document.createElement('input');
   const buttonCreatePost = document.createElement('button');
-  const postsSectionDiv = document.createElement('div'); // Sección donde se verán las publicaciones
-  const publishedPost = document.createElement('div'); // Caja donde estarán las publicaciones aún no tiene estilos
+  const postsSectionDiv = document.createElement('div'); // Sección donde se ven las publicaciones
   const userIconPost = document.createElement('img');
   const text = document.createElement('p');
   const heartIcon = document.createElement('img');
@@ -53,22 +52,41 @@ export const wall = () => {
   homeIcon.classList.add('homeIcon');
   logOut.classList.add('logOut');
 
-  const modalContainer = document.createElement('dialog');
-  modalContainer.classList.add('modalBack');
-  const modalAlert = document.createElement('div');
-  modalAlert.classList.add('publishedPost');
-  const message = document.createElement('p');
-  message.classList.add('message');
+  const modalEditContainer = document.createElement('dialog');
+  modalEditContainer.classList.add('modalBack');
+  const modalEditAlert = document.createElement('div');
+  modalEditAlert.classList.add('publishedPost');
+  const messageEdit = document.createElement('p');
+  messageEdit.classList.add('messageEdit');
   const editInput = document.createElement('input');
   editInput.classList.add('editInput');
-  const acceptButton = document.createElement('button');
-  acceptButton.classList.add('acceptButton');
-  const cancelButton = document.createElement('button');
-  cancelButton.classList.add('cancelButton');
-  cancelButton.textContent = 'Cancel';
+  const acceptEditButton = document.createElement('button');
+  acceptEditButton.classList.add('acceptButton');
+  const cancelEditButton = document.createElement('button');
+  cancelEditButton.classList.add('cancelButton');
+  cancelEditButton.textContent = 'Cancel';
+  messageEdit.textContent = 'Edit your post';
+  acceptEditButton.textContent = 'Save';
 
-  modalAlert.append(message, editInput, cancelButton, acceptButton);
-  modalContainer.append(modalAlert);
+  modalEditAlert.append(messageEdit, editInput, cancelEditButton, acceptEditButton);
+  modalEditContainer.append(modalEditAlert);
+
+  const modalDeleteContainer = document.createElement('dialog');
+  modalDeleteContainer.classList.add('modalBack');
+  const modalDeleteAlert = document.createElement('div');
+  modalDeleteAlert.classList.add('publishedPost');
+  const messageDelete = document.createElement('p');
+  messageDelete.classList.add('messageDelete');
+  const acceptDeleteButton = document.createElement('button');
+  acceptDeleteButton.classList.add('acceptButton');
+  const cancelDeleteButton = document.createElement('button');
+  cancelDeleteButton.classList.add('cancelButton');
+  cancelDeleteButton.textContent = 'Cancel';
+  acceptDeleteButton.textContent = 'Delete';
+  messageDelete.textContent = 'Delete Post?';
+
+  modalDeleteAlert.append(messageDelete, cancelDeleteButton, acceptDeleteButton);
+  modalDeleteContainer.append(modalDeleteAlert);
 
   let editStatus = false;
 
@@ -107,7 +125,14 @@ export const wall = () => {
     deletePostButtons.forEach((btn) => {
       btn.addEventListener('click', ({ target: { dataset } }) => {
         console.log(dataset.id);
-        deleteDocPost(dataset.id);
+        modalDeleteContainer.showModal();
+        cancelDeleteButton.addEventListener('click', () => {
+          modalDeleteContainer.close();
+        });
+        acceptDeleteButton.addEventListener('click', () => {
+          deleteDocPost(dataset.id);
+          modalDeleteContainer.close();
+        });
       });
     });
     const editPostButtons = document.querySelectorAll('.editButton');
@@ -116,10 +141,21 @@ export const wall = () => {
         const doc = await getPost(e.target.dataset.id);
         const post = doc.data();
 
-        postTextBox.value = post.post;
+        modalEditContainer.showModal();
+        editInput.value = post.post;
         editStatus = true;
-        modalContainer.showModal();
-        message.textContent = 'Edit your message';
+
+        cancelEditButton.addEventListener('click', () => {
+          modalEditContainer.close();
+        });
+        acceptEditButton.addEventListener('click', () => {
+          editStatus = true;
+          const newInput = editInput.value;
+          console.log(doc.id);
+          updatePost(doc.id, newInput);
+          modalEditContainer.close();
+          editStatus = false;
+        });
       });
     });
     console.log(postinfo);
@@ -131,14 +167,7 @@ export const wall = () => {
     e.preventDefault();
     const postValue = postTextBox.value;
     console.log(postValue);
-    //postCollection(postValue, user);
-    editStatus = true;
-    if (editStatus) {
-      const getId = getPost(e.target.dataset.id);
-      updatePost(getId, postValue);
-    } else {
-      postCollection(postValue, user);
-    }
+    postCollection(postValue, user);
     makePostForm.reset();
   });
 
@@ -152,7 +181,6 @@ export const wall = () => {
   makePostForm.append(postTextBox, buttonCreatePost);
   bottomBannerDiv.append(bottomLine, logOut);
 
-  div.append(modalContainer, upperBannerDiv, makePostForm, postsSectionDiv, bottomBannerDiv);
+  div.append(modalEditContainer, modalDeleteContainer, upperBannerDiv, makePostForm, postsSectionDiv, bottomBannerDiv);
   return div;
 };
-
