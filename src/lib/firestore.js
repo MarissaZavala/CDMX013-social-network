@@ -18,4 +18,4 @@ const q = query(collection(db, 'postCollection'), orderBy('time', 'desc'), limit
 export const onRealTime = (callback) => onSnapshot(q, callback);
 export const deleteDocPost = (id) => deleteDoc(doc(db, 'postCollection', id));
 export const getPost = (id) => getDoc(doc(db, 'postCollection', id));
-export const updatePost = (id, newFields) => updateDoc(doc(db, 'postCollection', id), {post: newFields});
+export const updatePost = (id, newFields) => updateDoc(doc(db, 'postCollection', id), { post: newFields });

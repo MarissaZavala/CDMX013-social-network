@@ -83,7 +83,7 @@ export const wall = () => {
   cancelDeleteButton.classList.add('cancelButton');
   cancelDeleteButton.textContent = 'Cancel';
   acceptDeleteButton.textContent = 'Delete';
-  messageDelete.textContent = 'Delete Post?';
+  messageDelete.textContent = 'Are you sure you want to delete this post?';
 
   modalDeleteAlert.append(messageDelete, cancelDeleteButton, acceptDeleteButton);
   modalDeleteContainer.append(modalDeleteAlert);
@@ -155,6 +155,14 @@ export const wall = () => {
           updatePost(doc.id, newInput);
           modalEditContainer.close();
           editStatus = false;
+        });
+      });
+      const likeButtons = document.querySelectorAll('.heartIcon');
+      likeButtons.forEach((btn) => { 
+        btn.addEventListener('click', (e) => {
+          e.stopImmediatePropagation();
+          console.log('hello');
+          heartIcon.style.display = 'none';
         });
       });
     });
