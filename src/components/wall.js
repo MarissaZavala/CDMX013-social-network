@@ -14,6 +14,7 @@ export const wall = () => {
   const userIcon = document.createElement('img');
   const makePostForm = document.createElement('form');
   const postTextBox = document.createElement('input');
+  const postAlert = document.createElement('p');
   const buttonCreatePost = document.createElement('button');
   const postsSectionDiv = document.createElement('div'); // Sección donde se ven las publicaciones
   const userIconPost = document.createElement('img');
@@ -37,6 +38,7 @@ export const wall = () => {
   likeCount.textContent = '+ 2 likes';
   homeIcon.setAttribute('src', 'images/homeIcon.png');
   logOut.setAttribute('src', '/images/log-out.png');
+  postAlert.textContent = '';
 
   div.classList.add('wall-div');
   upperBannerDiv.classList.add('upperBannerDiv');
@@ -45,6 +47,7 @@ export const wall = () => {
   userIcon.classList.add('userIcon');
   postTextBox.classList.add('postTextBox');
   makePostForm.classList.add('makePostForm');
+  postAlert.classList.add('postAlert');
   buttonCreatePost.classList.add('postButton');
   postsSectionDiv.classList.add('postsSectionDiv');
   bottomBannerDiv.classList.add('bottomBannerDiv');
@@ -113,10 +116,11 @@ export const wall = () => {
                     <img class='userIcon' src='/images/userIcon.png'>
                     <p class='userName'>${doc.data().user}</p>
                     <p class='publishedText'>${doc.data().post}</p>
-                    <img class='heartButton' src='/images/favorite.svg' data-id='${doc.id}'>
+                    <img class='heartButton' src='${doc.data().likes.includes(user.uid) ? '/images/likeIcon.png' : '/images/favorite.svg '}' data-id='${doc.id}'>
                     <p class='likeCount'>${doc.data().likes.length} Likes</p>
-                    <img class='deleteButton' src='/images/delete1.svg' data-id='${doc.id}'>
-                    <img class='editButton' src='/images/edit.png' data-id='${doc.id}'>
+                    <img class='deleteButton ${doc.data().userID !== user.uid ? 'deleteInactive' : ''}'
+                    ' src='/images/delete1.svg' data-id='${doc.id}'>
+                    <img class='editButton ${doc.data().userID !== user.uid ? 'editInactive' : ''}' src='/images/edit.png' data-id='${doc.id}'>
                     </div>`;
       postsSectionDiv.innerHTML += html;
     });
@@ -166,12 +170,12 @@ export const wall = () => {
           if (doc.data().likes.includes(user.uid)) {
             removeLikes(e.target.dataset.id, user.uid);
           } else {
-            // console.log(likeButtons);
-            // likeButtons.classList.toggle('heart');
-            // console.log(likeButtons);
             addLikes(e.target.dataset.id, user.uid);
             likeCount.textContent = doc.data().likes;
             console.log(likeCount);
+            // console.log(likeButtons);
+            btn.classList.toggle('heart');
+            // console.log(likeButtons);
           }
         });
       });
@@ -184,8 +188,16 @@ export const wall = () => {
     e.preventDefault();
     const postValue = postTextBox.value;
     console.log(postValue);
-    postCollection(postValue, user);
-    makePostForm.reset();
+    if (postValue === '') {
+      console.log('esta vacío');
+      postAlert.innerHTML = 'Before clicking, fill in the field';
+      // eslint-disable-next-line no-use-before-define
+      cleanP();
+    } else {
+      postAlert.innerHTML = '';
+      postCollection(postValue, user);
+      makePostForm.reset();
+    }
   });
 
   logOut.addEventListener('click', () => {
@@ -194,8 +206,14 @@ export const wall = () => {
         onNavigate('/');
       });
   });
+
+  function cleanP() {
+    setTimeout(() => {
+      postAlert.innerHTML = '';
+    }, 4000);
+  }
   upperBannerDiv.append(growLetters, textUserName, userIcon);
-  makePostForm.append(postTextBox, buttonCreatePost);
+  makePostForm.append(postTextBox, postAlert, buttonCreatePost);
   bottomBannerDiv.append(bottomLine, logOut);
 
   div.append(modalEditContainer, modalDeleteContainer, upperBannerDiv, makePostForm, postsSectionDiv, bottomBannerDiv);

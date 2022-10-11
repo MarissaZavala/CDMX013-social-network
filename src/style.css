@@ -100,8 +100,9 @@ a {
 }
 
 .errorInput {
-    color: #cc1010;
+    color: var(--secondColor);
     grid-column: 1/5;
+    font-weight: 600;
 }
 
 .brandIcon {
@@ -254,7 +255,6 @@ a {
 .makePostForm{
     width: 375px;
     height: 140px;
-    gap: 16px 0px;
     margin-top: 80px;
     position: fixed;
     z-index: 1;
@@ -265,7 +265,16 @@ a {
 
 .postTextBox {
     height: 84px;
-    margin-top: 16px;
+    margin-top: 5px;
+    padding: 25px;
+}
+.postAlert {
+    width: 295px;
+    font-size: 13px;
+    text-align: center;
+    margin: 5px;
+    font-weight: 600;
+    color: var(--secondColor);
 }
 
 .postButton {
@@ -330,14 +339,13 @@ a {
 }
 
 .heartButton{
+    width: 25px;
+    height: 25px;
     background: none;
     grid-column: 1/2;
     grid-row: 3/4;
     cursor: pointer;
     align-self: auto;
-}
-.heart {
-    background-color: #c25824;
 }
 
 .likeIcon{
@@ -367,6 +375,10 @@ a {
     padding: 0;
     margin-top: -1.5px;
 }
+.deleteInactive {
+    display: none;
+
+}
 .editButton{
     margin-top: 2px;
     width: 20px;
@@ -376,6 +388,10 @@ a {
     grid-row: 3/4;
     cursor: pointer;
     align-self: auto;
+}
+.editInactive {
+    display: none;
+
 }
 .bottomBannerDiv {
     /*position: absolute;
