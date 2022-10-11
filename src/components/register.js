@@ -1,5 +1,6 @@
 import { onNavigate } from '../main.js';
-import { createAccount, verifyWithGoogle } from '../lib/auth.js';
+import { createAccount, redirect, verifyWithGoogle } from '../lib/auth.js';
+
 
 export const register = () => {
   const div = document.createElement('div');
@@ -64,9 +65,23 @@ export const register = () => {
     }
   });
   buttonGoogle.addEventListener('click', () => {
-    verifyWithGoogle()
-      .then(() => {
+    verifyWithGoogle();
+    redirect()
+      .then((result) => {
         onNavigate('/wall');
+        // This gives you a Google Access Token. You can use it to access Google APIs.
+        const credential = verifyWithGoogle.credentialFromResult(result);
+        const token = credential.accessToken;
+
+        // The signed-in user info.
+        const user = result.user;
+      }).catch((error) => {
+      // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        const credential = verifyWithGoogle.credentialFromError(error);
+      // ...
       });
   });
   askSection.append(askRegister, linkSignin);
