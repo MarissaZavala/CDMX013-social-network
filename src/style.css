@@ -100,8 +100,9 @@ a {
 }
 
 .errorInput {
-    color: #cc1010;
+    color: var(--secondColor);
     grid-column: 1/5;
+    font-weight: 600;
 }
 
 .brandIcon {
@@ -226,6 +227,8 @@ a {
     margin-right: 16px;
     display: flex;
     align-items: center;
+    padding-right: 26px; /*lo puse porque se veía la orilla de los post arriba*/
+    padding-left: 26px; /*lo puse porque se veía la orilla de los post arriba*/
 }
 
 .growLetters {
@@ -252,7 +255,6 @@ a {
 .makePostForm{
     width: 375px;
     height: 140px;
-    gap: 16px 0px;
     margin-top: 80px;
     position: fixed;
     z-index: 1;
@@ -263,7 +265,16 @@ a {
 
 .postTextBox {
     height: 84px;
-    margin-top: 16px;
+    margin-top: 5px;
+    padding: 25px;
+}
+.postAlert {
+    width: 295px;
+    font-size: 13px;
+    text-align: center;
+    margin: 5px;
+    font-weight: 600;
+    color: var(--secondColor);
 }
 
 .postButton {
@@ -276,6 +287,7 @@ a {
     margin: 0;
     font-size: 14px;
     margin-left: 220px;
+    cursor: pointer;
 }
 
 .postsSectionDiv{
@@ -292,7 +304,6 @@ a {
 }
 
 .publishedPost{
-    /*display: none;*/
     background-color: var(--backgroundColor);
     width: 343px;
     height: 194px;
@@ -318,17 +329,23 @@ a {
 }
 
 .publishedText{
+    padding: 10px;
+    width: 250px;
+    height: 50px;
     grid-column: 1/5;
     grid-row: 2/3;
-    padding: 5%;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
-.heartIcon{
-    width: 30px;
-    height: 30px;
+.heartButton{
+    width: 25px;
+    height: 25px;
     background: none;
     grid-column: 1/2;
     grid-row: 3/4;
+    cursor: pointer;
+    align-self: auto;
 }
 
 .likeIcon{
@@ -337,29 +354,44 @@ a {
     background: none;
     grid-column: 2/3;
     grid-row: 3/4;
+    align-self:baseline;
+    
 }
 
 .likeCount {
-    grid-column: 3/4;
+    grid-column: 1/3;
     grid-row: 3/4;
-    align-self: center;
-    justify-self: start;
-    display: none;
+    margin-top: 3px;
 }
 
 .deleteButton{
-    width: 20px;
-    height: 25px;
+    width: 24px;
+    height: 27px;
     background: none;
     grid-column: 4/5;
     grid-row: 3/4;
+    cursor: pointer;
+    align-self: auto;
+    padding: 0;
+    margin-top: -1.5px;
+}
+.deleteInactive {
+    display: none;
+
 }
 .editButton{
-    width: 25px;
-    height: 25px;
+    margin-top: 2px;
+    width: 20px;
+    height: 20px;
     background: none;
     grid-column: 3/4;
-    grid-row: 3/4;  
+    grid-row: 3/4;
+    cursor: pointer;
+    align-self: auto;
+}
+.editInactive {
+    display: none;
+
 }
 .bottomBannerDiv {
     /*position: absolute;
@@ -377,20 +409,85 @@ a {
 .bottomLine {
     width: 350px;
     height: 2px;
-    /*width: 330px;
-    height: 1px;*/
     background-color: var(--thirdColor);
-    grid-column: 1/4;;
+    grid-column: 1/4;
     grid-row: 1/2;
-    align-self:end;
-    margin-top: -20px;
+    align-self: end;
+    margin-top: -10px;
+    margin-bottom: 20px;
 }
 
 .logOut {
     width: 52.9px;
     height: 52.9px;
     grid-column: 1/4;
+    grid-row: 1/3;
+    align-self: center;
+    cursor: pointer;
+}
+.modalBack{
+    background-color: #60762e77;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    position: fixed;
+    margin: 0;
+    justify-content: center;
+} 
+.modalBack > div{
+    margin-top: 230px;
+    margin-left: -5px;
+    display: grid;
+    grid-template-columns: 1.5px repeat(2, 170px) 1.5px;
+    gap: 10px 0;
+}
+.editInput{
+    width: 280px;
+    height: 90px;
+    background: var(--white);
+    grid-column: 2/4;
     grid-row: 2/3;
+    text-align: center;
+    padding: 5px;
+}
+.acceptButton{
+    background: var(--firstColor);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    height: 28px;
+    width: 89px;
+    margin: 0;
+    font-size: 14px;
+    grid-column: 3/4;
+    grid-row: 3/4;
+    justify-self: center;
+    cursor: pointer;
+}
+.messageEdit {
+    grid-column: 2/4;
+    grid-row: 1/2;
     align-self: end;
-    margin-top: 5px;
+}
+.cancelButton{
+    background: var(--secondColor);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    height: 28px;
+    width: 89px;
+    margin: 0;
+    font-size: 14px;
+    grid-column: 2/3;
+    grid-row: 3/4;
+    justify-self: center;
+    cursor: pointer;
+}
+.messageDelete {
+    grid-column: 2/4;
+    grid-row: 1/3;
+    align-self: center;
+    font-size: 20px;
+    padding: 16px;
+    text-align: center;
 }

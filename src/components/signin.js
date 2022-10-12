@@ -17,7 +17,7 @@ export const LogOn = () => {
   const askAccount = document.createElement('p');
   const linkRegister = document.createElement('a');
 
-  title.textContent = 'Welcome back';
+  title.textContent = 'Welcome back!';
   brandIcon.setAttribute('src', '/images/icon.png');
   brandIcon.classList.add('brandIcon');
   inputEmail.setAttribute('type', 'email');
@@ -62,7 +62,8 @@ export const LogOn = () => {
     }
   });
   buttonGoogle.addEventListener('click', () => {
-    verifyWithGoogle()
+    verifyWithGoogle();
+    redirect()
       .then((result) => {
       // This gives you a Google Access Token. You can use it to access Google APIs.
         const credential = GoogleAuthProvider.credentialFromResult(result);

@@ -69,7 +69,7 @@ export const register = () => {
       .then((result) => {
         onNavigate('/wall');
         // This gives you a Google Access Token. You can use it to access Google APIs.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const credential = verifyWithGoogle.credentialFromResult(result);
         const token = credential.accessToken;
 
         // The signed-in user info.
@@ -79,7 +79,7 @@ export const register = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
 
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        const credential = verifyWithGoogle.credentialFromError(error);
       // ...
       });
   });
